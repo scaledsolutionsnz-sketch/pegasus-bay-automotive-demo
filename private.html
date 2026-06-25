@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tell Us More | Pegasus Bay Automotive</title>
+<meta name="description" content="Share your feedback privately with Pegasus Bay Automotive, Kaiapoi." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%23ff5c1a'/><text x='50' y='72' font-size='62' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'>P</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="mark">P</span><span><b>Pegasus Bay</b><span>Automotive</span></span></a>
+    <div class="nav-links"><a class="nav-cta" href="tel:+642041047419">020 4104 7419</a></div>
+  </div>
+</nav>
+
+<div class="fb-wrap">
+  <div class="fb-card">
+    <div id="form-state">
+      <p class="eyebrow">We want to make it right</p>
+      <h1 style="font-size:2.2rem;margin:12px 0 8px">Tell us what happened</h1>
+      <p style="color:var(--muted);margin-bottom:24px">Thanks for being honest — this comes straight to Callum and we'll do what we can to sort it.</p>
+      <form id="fb-form" action="https://formsubmit.co/callum.gibo@icloud.com" method="POST">
+        <input type="hidden" name="_subject" value="Private feedback — Pegasus Bay Automotive" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <div><label for="name">Name</label><input id="name" name="name" type="text" required placeholder="Your name" /></div>
+        <div><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="you@email.com" /></div>
+        <div><label for="rating">Your rating</label><input id="rating" name="rating" type="text" readonly /></div>
+        <div><label for="feedback">What could we have done better?</label><textarea id="feedback" name="feedback" required placeholder="Tell us about your visit"></textarea></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">Send feedback</button>
+      </form>
+    </div>
+    <div class="success" id="success">
+      <div class="check">✓</div>
+      <h1 style="font-size:1.9rem;margin-bottom:8px">Thank you</h1>
+      <p style="color:var(--muted)">We've received your feedback and we'll be in touch. We appreciate you giving us the chance to put things right.</p>
+      <a class="btn btn-dark" href="index.html" style="margin-top:22px">Back to home</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pre-fill rating from URL
+  var params = new URLSearchParams(window.location.search);
+  var rating = params.get('rating') || '';
+  var ratingField = document.getElementById('rating');
+  if (rating) { ratingField.value = rating + ' out of 5 stars'; }
+  else { ratingField.value = 'Not specified'; }
+
+  // Inline success state (AJAX submit to FormSubmit)
+  var form = document.getElementById('fb-form');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch('https://formsubmit.co/ajax/callum.gibo@icloud.com', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    }).then(function () {
+      document.getElementById('form-state').style.display = 'none';
+      document.getElementById('success').classList.add('show');
+    }).catch(function () {
+      document.getElementById('form-state').style.display = 'none';
+      document.getElementById('success').classList.add('show');
+    });
+  });
+</script>
+</body>
+</html>
